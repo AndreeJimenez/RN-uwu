@@ -4,7 +4,8 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { CartScreen } from "./CartScreen";
 import { CatalogScreen } from "./CatalogScreen";
 import HomeScreen from "./HomeScreen";
-
+import { StyleSheet } from "react-native";
+import Icon from "react-native-vector-icons/MaterialIcons";
 const Tab = createBottomTabNavigator();
 const HomeStack = createStackNavigator();
 const SettingsStack = createStackNavigator();
@@ -52,7 +53,14 @@ function SettingsStackScreen2() {
 
 export default function Navigation() {
   return (
-    <Tab.Navigator>
+    <Tab.Navigator
+      tabBarOptions={{
+        activeTintColor: "#c0B283",
+        style: {
+          backgroundColor: "#373737",
+        },
+      }}
+    >
       <Tab.Screen
         name="Home"
         component={HomeStackScreen}
@@ -71,3 +79,9 @@ export default function Navigation() {
     </Tab.Navigator>
   );
 }
+
+const styles = StyleSheet.create({
+  navigator: {
+    backgroundColor: "#373737",
+  },
+});

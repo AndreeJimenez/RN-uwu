@@ -10,8 +10,8 @@ import {
   SafeAreaView,
 } from "react-native";
 export const LoginScreen = ({ navigation }) => {
-  const [email, onChangeEmail] = React.useState("Email");
-  const [password, onChangePassword] = React.useState("Password");
+  const [email, onChangeEmail] = React.useState("CORREO ELECTRONICO");
+  const [password, onChangePassword] = React.useState("CONTRASEÑA");
 
   return (
     <SafeAreaView>
@@ -19,7 +19,7 @@ export const LoginScreen = ({ navigation }) => {
         <Image
           style={styles.imgTrufa}
           source={{
-            uri: require("../public/trufas.jpg"),
+            uri: require("../public/trufas3x.png"),
           }}
         />
       </View>
@@ -40,13 +40,13 @@ export const LoginScreen = ({ navigation }) => {
           style={styles.btnLogin}
           onPress={() => navigation.navigate("Home")}
         >
-          <Text style={styles.txtLogin}>Login</Text>
+          <Text style={styles.txtLogin}>Iniciar Sesion</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.btnRegister}
           onPress={() => navigation.navigate("Register")}
         >
-          <Text style={styles.txtRegister}>Register</Text>
+          <Text style={styles.txtRegister}>REGISTRARSE</Text>
         </TouchableOpacity>
       </View>
     </SafeAreaView>
@@ -55,45 +55,50 @@ export const LoginScreen = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   containerImg: {
-    borderColor: "red",
     backgroundColor: "blue",
-    borderWidth: 5,
     alignItems: "center",
   },
   imgTrufa: {
-    width: 250,
+    width: "100%",
     height: 300,
-    borderWidth: 10,
     marginHorizontal: 100,
   },
   containerText: {
     marginVertical: 65,
-    borderWidth: 5,
-    borderColor: "green",
   },
   Text: {
+    textAlign: "center",
+    marginHorizontal: 40,
+    marginVertical: 15,
     padding: 15,
-    borderWidth: 2,
+    borderWidth: 1,
     borderColor: "black",
+    borderRadius: 20,
   },
-  containerButtons: {
-    borderWidth: 5,
+  containerButtons: {},
+  btnLogin: {
+    height: 50,
+    backgroundColor: "#F4F4F4",
+    textAlign: "center",
+    borderRadius: 20,
+    borderWidth: 1,
     borderColor: "black",
+    marginHorizontal: 40,
   },
-  btnLogin: { height: 50, backgroundColor: "red", textAlign: "center" },
   txtLogin: {
-    color: "yellow",
+    color: "black",
     fontSize: 15,
     textAlign: "center",
     paddingTop: 15,
   },
   txtRegister: {
-    color: "yellow",
+    color: "black",
   },
 
   btnRegister: {
     textAlign: "center",
     height: 20,
-    backgroundColor: "#841584",
+
+    marginTop: 15,
   },
 });

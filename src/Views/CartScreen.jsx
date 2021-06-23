@@ -1,11 +1,23 @@
 import React from "react";
-import { Text, View, StyleSheet, Image, SafeAreaView } from "react-native";
+import {
+  Text,
+  View,
+  StyleSheet,
+  Image,
+  SafeAreaView,
+  Button,
+} from "react-native";
 import {
   ScrollView,
   TextInput,
   TouchableOpacity,
 } from "react-native-gesture-handler";
+
+import { Coria } from "../hook";
+
 export const CartScreen = () => {
+  const { count, increase } = Coria();
+
   return (
     <SafeAreaView>
       <Text style={styles.TxtPrincipal}>Carrito de Compras</Text>
@@ -43,9 +55,11 @@ export const CartScreen = () => {
       <View style={styles.containerTotal}>
         <TextInput style={styles.txtTotal} value={"Total: $$$"}></TextInput>
       </View>
-      <TouchableOpacity style={styles.btnBuy}>
+      <TouchableOpacity style={styles.btnBuy} onPress={() => increase()}>
         <Text style={styles.txtBuy}>Comprar</Text>
       </TouchableOpacity>
+
+      <Text>{count}</Text>
     </SafeAreaView>
   );
 };

@@ -2,7 +2,7 @@ import * as React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createStackNavigator } from "@react-navigation/stack";
 import { CartScreen } from "./CartScreen";
-import { CatalogScreen } from "./CatalogScreen";
+import CatalogScreen from "./CatalogScreen";
 import HomeScreen from "./HomeScreen";
 import { StyleSheet } from "react-native";
 import Icon from "react-native-vector-icons/MaterialIcons";

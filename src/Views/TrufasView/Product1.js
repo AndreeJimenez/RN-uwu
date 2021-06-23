@@ -3,7 +3,7 @@ import { View, Text } from "react-native";
 export const Product1 = () => {
   return (
     <View>
-      <Text>Producto1</Text>
+      <Text>Producto1 SI</Text>
     </View>
   );
 };

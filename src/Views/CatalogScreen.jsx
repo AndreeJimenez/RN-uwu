@@ -1,16 +1,23 @@
-import * as React from "react";
+import React, { useRef } from "react";
 import {
+  Animated,
   Button,
   View,
   Text,
   TouchableOpacity,
   StyleSheet,
   Image,
+  SafeAreaView,
 } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { ScrollView } from "react-native-gesture-handler";
 
+import caramelo from "../Views/controllers/Caramelo";
+import blanco from "../Views/controllers/Blanco";
+import chocolate from "../Views/controllers/Chocolate";
+import nuez from "../Views/controllers/Nuez";
+import vainilla from "../Views/controllers/Vainilla";
 function HomeScreen({ navigation }) {
   return (
     <ScrollView>
@@ -74,12 +81,31 @@ function HomeScreen({ navigation }) {
 }
 
 function TrufaCaramelo({ navigation }) {
+  const { TrufaCaramelo, ComprarCaramelo } = caramelo();
+  const fadeAnim = useRef(new Animated.Value(0)).current;
+
+  const fadeIn = () => {
+    // Will change fadeAnim value to 1 in 5 seconds
+    Animated.timing(fadeAnim, {
+      toValue: 1,
+      duration: 3000,
+    }).start();
+  };
+
+  const fadeOut = () => {
+    // Will change fadeAnim value to 0 in 3 seconds
+    Animated.timing(fadeAnim, {
+      toValue: 0,
+      duration: 3000,
+    }).start();
+  };
+
   return (
     <View style={styles2.containerImg2}>
       <Image
         style={styles2.imgTrufa2}
         source={{
-          uri: require("../public/trufas3.png"),
+          uri: require("../public/caramelo.jpg"),
         }}
       />
 
@@ -91,9 +117,29 @@ function TrufaCaramelo({ navigation }) {
           finalidad de que el producto esté recién preparado y mantenga su
           sabor.
         </Text>
+        <SafeAreaView style={styles.container}>
+          <Animated.View
+            style={[
+              styles.fadingContainer,
+              {
+                // Bind opacity to animated value
+                opacity: fadeAnim,
+              },
+            ]}
+          >
+            <Text style={styles.fadingText}>Trufa agregada</Text>
+          </Animated.View>
+        </SafeAreaView>
         <TouchableOpacity
           style={styles2.btnBuy}
-          onPress={() => navigation.push("Details")}
+          onPress={() => {
+            ComprarCaramelo();
+            fadeIn();
+
+            setTimeout(() => {
+              fadeOut();
+            }, 2000);
+          }}
         >
           <Text style={styles2.txtBuy}>Añadir al carrito</Text>
         </TouchableOpacity>
@@ -102,26 +148,64 @@ function TrufaCaramelo({ navigation }) {
   );
 }
 function TrufaBlanca({ navigation }) {
+  const fadeAnim = useRef(new Animated.Value(0)).current;
+
+  const fadeIn = () => {
+    // Will change fadeAnim value to 1 in 5 seconds
+    Animated.timing(fadeAnim, {
+      toValue: 1,
+      duration: 3000,
+    }).start();
+  };
+
+  const fadeOut = () => {
+    // Will change fadeAnim value to 0 in 3 seconds
+    Animated.timing(fadeAnim, {
+      toValue: 0,
+      duration: 3000,
+    }).start();
+  };
+
+  const { TrufaBlanco, ComprarBlanco } = blanco();
   return (
     <View style={styles2.containerImg2}>
       <Image
         style={styles2.imgTrufa2}
         source={{
-          uri: require("../public/trufas3.png"),
+          uri: require("../public/Blanco.jpg"),
         }}
       />
 
       <View>
-        <Text style={styles2.About}>Trufa sabor caramelo</Text>
+        <Text style={styles2.About}>Trufa Chocolate Blanco</Text>
         <Text style={styles2.info}>
           Esta aplicación permite hacer pedidos de todos los tipos de trufas que
           se manejan para después ser enviados a nivel estatal, esto con la
           finalidad de que el producto esté recién preparado y mantenga su
           sabor.
         </Text>
+        <SafeAreaView style={styles.container}>
+          <Animated.View
+            style={[
+              styles.fadingContainer,
+              {
+                // Bind opacity to animated value
+                opacity: fadeAnim,
+              },
+            ]}
+          >
+            <Text style={styles.fadingText}>Trufa agregada</Text>
+          </Animated.View>
+        </SafeAreaView>
         <TouchableOpacity
           style={styles2.btnBuy}
-          onPress={() => navigation.push("Details")}
+          onPress={() => {
+            ComprarBlanco();
+            fadeIn();
+            setTimeout(() => {
+              fadeOut();
+            }, 2000);
+          }}
         >
           <Text style={styles2.txtBuy}>Añadir al carrito</Text>
         </TouchableOpacity>
@@ -131,26 +215,63 @@ function TrufaBlanca({ navigation }) {
 }
 
 function TrufaChocolate({ navigation }) {
+  const { TrufaChocolate, ComprarChocolate } = chocolate();
+  const fadeAnim = useRef(new Animated.Value(0)).current;
+
+  const fadeIn = () => {
+    // Will change fadeAnim value to 1 in 5 seconds
+    Animated.timing(fadeAnim, {
+      toValue: 1,
+      duration: 3000,
+    }).start();
+  };
+
+  const fadeOut = () => {
+    // Will change fadeAnim value to 0 in 3 seconds
+    Animated.timing(fadeAnim, {
+      toValue: 0,
+      duration: 3000,
+    }).start();
+  };
   return (
     <View style={styles2.containerImg2}>
       <Image
         style={styles2.imgTrufa2}
         source={{
-          uri: require("../public/trufas3.png"),
+          uri: require("../public/Chocolate.jpg"),
         }}
       />
 
       <View>
-        <Text style={styles2.About}>Trufa sabor caramelo</Text>
+        <Text style={styles2.About}>Trufa sabor Chocolate</Text>
         <Text style={styles2.info}>
           Esta aplicación permite hacer pedidos de todos los tipos de trufas que
           se manejan para después ser enviados a nivel estatal, esto con la
           finalidad de que el producto esté recién preparado y mantenga su
           sabor.
         </Text>
+        <SafeAreaView style={styles.container}>
+          <Animated.View
+            style={[
+              styles.fadingContainer,
+              {
+                // Bind opacity to animated value
+                opacity: fadeAnim,
+              },
+            ]}
+          >
+            <Text style={styles.fadingText}>Trufa agregada</Text>
+          </Animated.View>
+        </SafeAreaView>
         <TouchableOpacity
           style={styles2.btnBuy}
-          onPress={() => navigation.push("Details")}
+          onPress={() => {
+            ComprarChocolate();
+            fadeIn();
+            setTimeout(() => {
+              fadeOut();
+            }, 2000);
+          }}
         >
           <Text style={styles2.txtBuy}>Añadir al carrito</Text>
         </TouchableOpacity>
@@ -159,26 +280,64 @@ function TrufaChocolate({ navigation }) {
   );
 }
 function TrufaNuez({ navigation }) {
+  const { TrufaNuez, ComprarNuez } = nuez();
+  const fadeAnim = useRef(new Animated.Value(0)).current;
+
+  const fadeIn = () => {
+    // Will change fadeAnim value to 1 in 5 seconds
+    Animated.timing(fadeAnim, {
+      toValue: 1,
+      duration: 3000,
+    }).start();
+  };
+
+  const fadeOut = () => {
+    // Will change fadeAnim value to 0 in 3 seconds
+    Animated.timing(fadeAnim, {
+      toValue: 0,
+      duration: 3000,
+    }).start();
+  };
+
   return (
     <View style={styles2.containerImg2}>
       <Image
         style={styles2.imgTrufa2}
         source={{
-          uri: require("../public/trufas3.png"),
+          uri: require("../public/nuez.png"),
         }}
       />
 
       <View>
-        <Text style={styles2.About}>Trufa sabor caramelo</Text>
+        <Text style={styles2.About}>Trufa sabor nuez</Text>
         <Text style={styles2.info}>
           Esta aplicación permite hacer pedidos de todos los tipos de trufas que
           se manejan para después ser enviados a nivel estatal, esto con la
           finalidad de que el producto esté recién preparado y mantenga su
           sabor.
         </Text>
+        <SafeAreaView style={styles.container}>
+          <Animated.View
+            style={[
+              styles.fadingContainer,
+              {
+                // Bind opacity to animated value
+                opacity: fadeAnim,
+              },
+            ]}
+          >
+            <Text style={styles.fadingText}>Trufa agregada</Text>
+          </Animated.View>
+        </SafeAreaView>
         <TouchableOpacity
           style={styles2.btnBuy}
-          onPress={() => navigation.push("Details")}
+          onPress={() => {
+            ComprarNuez();
+            fadeIn();
+            setTimeout(() => {
+              fadeOut();
+            }, 2000);
+          }}
         >
           <Text style={styles2.txtBuy}>Añadir al carrito</Text>
         </TouchableOpacity>
@@ -187,26 +346,64 @@ function TrufaNuez({ navigation }) {
   );
 }
 function TrufaVainilla({ navigation }) {
+  const { TrufaVainilla, ComprarVainilla } = vainilla();
+  const fadeAnim = useRef(new Animated.Value(0)).current;
+
+  const fadeIn = () => {
+    // Will change fadeAnim value to 1 in 5 seconds
+    Animated.timing(fadeAnim, {
+      toValue: 1,
+      duration: 3000,
+    }).start();
+  };
+
+  const fadeOut = () => {
+    // Will change fadeAnim value to 0 in 3 seconds
+    Animated.timing(fadeAnim, {
+      toValue: 0,
+      duration: 3000,
+    }).start();
+  };
+
   return (
     <View style={styles2.containerImg2}>
       <Image
         style={styles2.imgTrufa2}
         source={{
-          uri: require("../public/trufas3.png"),
+          uri: require("../public/vainilla.jpg"),
         }}
       />
 
       <View>
-        <Text style={styles2.About}>Trufa sabor caramelo</Text>
+        <Text style={styles2.About}>Trufa sabor vainilla</Text>
         <Text style={styles2.info}>
           Esta aplicación permite hacer pedidos de todos los tipos de trufas que
           se manejan para después ser enviados a nivel estatal, esto con la
           finalidad de que el producto esté recién preparado y mantenga su
           sabor.
         </Text>
+        <SafeAreaView style={styles.container}>
+          <Animated.View
+            style={[
+              styles.fadingContainer,
+              {
+                // Bind opacity to animated value
+                opacity: fadeAnim,
+              },
+            ]}
+          >
+            <Text style={styles.fadingText}>Trufa agregada</Text>
+          </Animated.View>
+        </SafeAreaView>
         <TouchableOpacity
           style={styles2.btnBuy}
-          onPress={() => navigation.push("Details")}
+          onPress={() => {
+            ComprarVainilla();
+            fadeIn();
+            setTimeout(() => {
+              fadeOut();
+            }, 2000);
+          }}
         >
           <Text style={styles2.txtBuy}>Añadir al carrito</Text>
         </TouchableOpacity>
@@ -245,6 +442,23 @@ const styles = StyleSheet.create({
     width: "100%",
     height: 200,
     borderRadius: 30,
+  },
+  container: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  fadingContainer: {
+    padding: 20,
+    backgroundColor: "powderblue",
+  },
+  fadingText: {
+    fontSize: 28,
+  },
+  buttonRow: {
+    flexBasis: 100,
+    justifyContent: "space-evenly",
+    marginVertical: 16,
   },
 });
 

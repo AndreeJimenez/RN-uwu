@@ -13,53 +13,123 @@ import {
   TouchableOpacity,
 } from "react-native-gesture-handler";
 
-import { Coria } from "../hook";
-
-export const CartScreen = () => {
-  const { count, increase } = Coria();
-
+import caramelo from "../Views/controllers/Caramelo";
+import blanco from "../Views/controllers/Blanco";
+import chocolate from "../Views/controllers/Chocolate";
+import nuez from "../Views/controllers/Nuez";
+import vainilla from "../Views/controllers/Vainilla";
+export const CartScreen = ({ navigation }) => {
+  const { TrufaCaramelo, ComprarCaremelo } = caramelo();
+  const { TrufaBlanco, ComprarBlanco } = blanco();
+  const { TrufaChocolate, ComprarChocolate } = chocolate();
+  const { TrufaNuez, ComprarNuez } = nuez();
+  const { TrufaVainilla, ComprarVainilla } = vainilla();
   return (
     <SafeAreaView>
       <Text style={styles.TxtPrincipal}>Carrito de Compras</Text>
-      <ScrollView>
-        <View style={styles.containerCart}>
-          <Image
-            style={styles.imagesTrufa}
-            source={{
-              uri: require("../public/trufas.jpg"),
-            }}
-          />
-          <View style={styles.containerImg}>
-            <Text style={styles.txtCart}>Chocolate</Text>
-            <Text>-</Text>
-            <Text>4</Text>
-            <Text>+</Text>
+      <View style={{ height: "50%" }}>
+        <ScrollView>
+          <View
+            style={[TrufaCaramelo == 0 ? styles.Clean : styles.containerCart]}
+          >
+            <Image
+              style={styles.imagesTrufa}
+              source={{
+                uri: require("../public/caramelo.jpg"),
+              }}
+            />
+            <View style={styles.containerImg}>
+              <Text style={styles.txtCart}>Caramelo</Text>
+              <Text>-</Text>
+              <Text>{TrufaCaramelo}</Text>
+              <Text>+</Text>
+            </View>
           </View>
-        </View>
 
-        <View style={styles.containerCart}>
-          <Image
-            style={styles.imagesTrufa}
-            source={{
-              uri: require("../public/trufas.jpg"),
-            }}
-          />
-          <View style={styles.containerImg}>
-            <Text style={styles.txtCart}>Chocolate Blanco</Text>
-            <Text>-</Text>
-            <Text>4</Text>
-            <Text>+</Text>
+          <View
+            style={[TrufaBlanco == 0 ? styles.Clean : styles.containerCart]}
+          >
+            <Image
+              style={styles.imagesTrufa}
+              source={{
+                uri: require("../public/Blanco.jpg"),
+              }}
+            />
+            <View style={styles.containerImg}>
+              <Text style={styles.txtCart}>Chocolate Blanco</Text>
+              <Text>-</Text>
+              <Text>{TrufaBlanco}</Text>
+              <Text>+</Text>
+            </View>
           </View>
-        </View>
-      </ScrollView>
-      <View style={styles.containerTotal}>
-        <TextInput style={styles.txtTotal} value={"Total: $$$"}></TextInput>
+
+          <View
+            style={[TrufaChocolate == 0 ? styles.Clean : styles.containerCart]}
+          >
+            <Image
+              style={styles.imagesTrufa}
+              source={{
+                uri: require("../public/Chocolate.jpg"),
+              }}
+            />
+            <View style={styles.containerImg}>
+              <Text style={styles.txtCart}>Chocolate </Text>
+              <Text>-</Text>
+              <Text>{TrufaChocolate}</Text>
+              <Text>+</Text>
+            </View>
+          </View>
+
+          <View style={[TrufaNuez == 0 ? styles.Clean : styles.containerCart]}>
+            <Image
+              style={styles.imagesTrufa}
+              source={{
+                uri: require("../public/nuez.png"),
+              }}
+            />
+            <View style={styles.containerImg}>
+              <Text style={styles.txtCart}>Nuez</Text>
+              <Text>-</Text>
+              <Text>{TrufaNuez}</Text>
+              <Text>+</Text>
+            </View>
+          </View>
+
+          <View
+            style={[TrufaVainilla == 0 ? styles.Clean : styles.containerCart]}
+          >
+            <Image
+              style={styles.imagesTrufa}
+              source={{
+                uri: require("../public/vainilla.jpg"),
+              }}
+            />
+            <View style={styles.containerImg}>
+              <Text style={styles.txtCart}>Vainilla</Text>
+              <Text>-</Text>
+              <Text>{TrufaVainilla}</Text>
+              <Text>+</Text>
+            </View>
+          </View>
+        </ScrollView>
       </View>
-      <TouchableOpacity style={styles.btnBuy} onPress={() => increase()}>
-        <Text style={styles.txtBuy}>Comprar</Text>
-      </TouchableOpacity>
 
-      <Text>{count}</Text>
+      <View style={styles.containerTotal}>
+        <Text style={styles.txtTotal}>
+          {`Su total es de : ${
+            TrufaCaramelo * 140 +
+            TrufaChocolate * 70 +
+            TrufaBlanco * 100 +
+            TrufaNuez * 120 +
+            TrufaVainilla * 130
+          }$`}
+        </Text>
+      </View>
+      <TouchableOpacity style={styles.btnBuy}>
+        <Text style={styles.txtBuy} onPress={() => navigation.navigate("Pago")}>
+          Comprar
+        </Text>
+      </TouchableOpacity>
     </SafeAreaView>
   );
 };
@@ -76,6 +146,7 @@ const styles = StyleSheet.create({
     height: 100,
     flexDirection: "row",
   },
+
   containerImg: {
     with: "100%",
   },
@@ -88,15 +159,15 @@ const styles = StyleSheet.create({
     fontSize: 23,
   },
   containerTotal: {
-    marginTop: 300,
+    marginTop: 50,
     marginHorizontal: 40,
     height: 50,
     borderWidth: 1,
     borderColor: "black",
   },
   txtTotal: {
-    fontSize: 15,
-    textAlign: "left",
+    fontSize: 25,
+    textAlign: "center",
   },
   btnBuy: {
     marginTop: 25,
@@ -113,5 +184,8 @@ const styles = StyleSheet.create({
     fontSize: 15,
     textAlign: "center",
     paddingTop: 15,
+  },
+  Clean: {
+    display: "none",
   },
 });

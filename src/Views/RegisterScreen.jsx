@@ -1,57 +1,137 @@
-import React from "react";
+import { StatusBar } from "expo-status-bar";
+import React, { Component } from "react";
 import {
-  SafeAreaView,
-  TextInput,
-  View,
   StyleSheet,
-  Image,
-  TouchableOpacity,
   Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+  SafeAreaView,
 } from "react-native";
-export const RegisterScreen = () => {
-  const [email, onChangeEmail] = React.useState("Email");
-  const [password, onChangePassword] = React.useState("Password");
-  const [name, onChangeName] = React.useState("Name");
-  const [phone, onChangePhone] = React.useState("Phone");
-  const [direction, onChangeDirection] = React.useState("Direction");
+import axios from "axios";
 
-  return (
-    <SafeAreaView>
-      <View>
-        <TextInput
-          style={styles.Text}
-          onChangeText={onChangeName}
-          value={name}
-        />
-        <TextInput
-          style={styles.Text}
-          onChangeText={onChangeEmail}
-          value={email}
-        />
-        <TextInput
-          style={styles.Text}
-          onChangeText={onChangePassword}
-          value={password}
-        />
-        <TextInput
-          style={styles.Text}
-          onChangeText={onChangePhone}
-          value={phone}
-        />
-        <TextInput
-          style={styles.Text}
-          onChangeText={onChangeDirection}
-          value={direction}
-        />
-      </View>
-      <View>
-        <TouchableOpacity style={styles.btnRegister}>
-          <Text style={styles.txtRegister}>Register</Text>
-        </TouchableOpacity>
-      </View>
-    </SafeAreaView>
-  );
-};
+const baseUrl = "http://localhost:4000/";
+
+class RegisterScreen extends Component {
+  constructor() {
+    super();
+    this.addProduct = this.addProduct.bind(this);
+    this.state = {
+      list: [],
+      name: "",
+      email: "",
+      password: "",
+      phone: "",
+      direction: "",
+    };
+  }
+
+  componentDidMount() {
+    this.getProducts();
+  }
+
+  async getProducts() {
+    try {
+      const response = await axios.get(baseUrl);
+      const { data } = response;
+      this.setState({ list: data });
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  async addProduct() {
+    try {
+      const { name, email, password, phone, direction } = this.state;
+      const response = await axios.post(baseUrl, {
+        name,
+        email,
+        password,
+        phone,
+        direction,
+      });
+      const { data } = response;
+      console.log(data);
+      this.getProducts();
+      this.clearInput();
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  clearInput() {
+    this.setState({
+      name: "",
+      email: "",
+      password: "",
+      phone: "",
+      direction: "",
+    });
+  }
+
+  render() {
+    const { list, name, email, password, phone, direction } = this.state;
+    return (
+      <SafeAreaView>
+        <View>
+          <TextInput
+            style={styles.Text}
+            placeholder="Name"
+            onChangeText={(name) => this.setState({ name })}
+            value={name}
+          />
+
+          <TextInput
+            style={styles.Text}
+            placeholder="Email"
+            onChangeText={(email) => this.setState({ email })}
+            value={email}
+          />
+          <TextInput
+            style={styles.Text}
+            placeholder="Password"
+            onChangeText={(password) => this.setState({ password })}
+            value={password}
+          />
+          <TextInput
+            style={styles.Text}
+            placeholder="Phone"
+            onChangeText={(phone) => this.setState({ phone })}
+            value={phone}
+          />
+          <TextInput
+            style={styles.Text}
+            placeholder="Direction"
+            onChangeText={(direction) => this.setState({ direction })}
+            value={direction}
+          />
+
+          <View>
+            <TouchableOpacity
+              style={styles.btnRegister}
+              onPress={this.addProduct}
+            >
+              <Text style={styles.txtRegister}>Aceptar</Text>
+            </TouchableOpacity>
+          </View>
+
+          {/*  <View style={{ flex: 1 }}>
+            {list.map((product) => (
+              <View key={product.id} style={styles.card}>
+                <Text>{product.name}</Text>
+
+                <Text>{product.email}</Text>
+                <Text>{product.password}</Text>
+                <Text>{product.phone}</Text>
+                <Text>{product.direction}</Text>
+              </View>
+            ))}
+          </View> */}
+        </View>
+      </SafeAreaView>
+    );
+  }
+} //fin clase App
 
 const styles = StyleSheet.create({
   Text: {
@@ -81,3 +161,4 @@ const styles = StyleSheet.create({
     paddingTop: 12,
   },
 });
+export default RegisterScreen;
